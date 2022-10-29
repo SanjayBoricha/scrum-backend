@@ -5,7 +5,7 @@ test('register user', async ({ client }) => {
     name: 'Jon Doe',
     email: 'jon.doe@mailinator.com',
     password: '123456',
-    password_confirmation: '123456'
+    password_confirmation: '123456',
   })
 
   response.assertStatus(200)
