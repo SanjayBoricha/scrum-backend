@@ -5,7 +5,7 @@ export default class BoardsController {
   public async index({ auth, response }: HttpContextContract) {
     try {
       // get auth user's boards
-      const boards = await auth.user?.related('boards').query()
+      const boards = await auth.user?.related('boards').query().preload('user')
 
       return boards
     } catch (error) {
@@ -27,9 +27,9 @@ export default class BoardsController {
   // create new board
   public async store({ auth, request, response }: HttpContextContract) {
     try {
-      const { name, projectId } = request.all()
+      const { name } = request.all()
 
-      const board = await auth.user?.related('boards').create({ name, projectId })
+      const board = await auth.user?.related('boards').create({ name })
 
       return board
     } catch (error) {

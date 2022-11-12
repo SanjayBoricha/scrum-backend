@@ -9,43 +9,39 @@ export default class extends BaseSeeder {
       name: 'Sanjay Boricha',
       email: 'sanjayboricha1001@gmail.com',
     })
-      .with('projects', 25, (projects) => {
-        projects.with('boards', 5, (boards) => {
-          boards
-            .merge({
-              userId: boards.parent.userId,
+      .with('boards', 5, (boards) => {
+        boards
+          .merge({
+            userId: boards.parent.id,
+          })
+          .with('tasks', 100, (tasks) => {
+            tasks.merge({
+              boardId: tasks.parent.id,
+              assigneeId: boards.parent.id,
+              createdBy: boards.parent.id,
             })
-            .with('tasks', 100, (tasks) => {
-              tasks.merge({
-                boardId: boards.parent.id,
-                assigneeId: boards.parent.userId,
-                createdBy: boards.parent.userId,
-              })
-            })
-          // .with('boardUsers', 5, (boardUsers) => {
-          //   boardUsers.merge({
-          //     boardId: boards.parent.id,
-          //     userId: boardUsers.parent.userId,
-          //   })
-          // })
-        })
+          })
+        // .with('boardUsers', 5, (boardUsers) => {
+        //   boardUsers.merge({
+        //     boardId: boards.parent.id,
+        //     userId: boardUsers.parent.userId,
+        //   })
+        // })
       })
       .create()
 
-    await UserFactory.with('projects', 3, (projects) => {
-      projects.with('boards', 5, (boards) => {
-        boards
-          .merge({
-            userId: boards.parent.userId,
+    await UserFactory.with('boards', 5, (boards) => {
+      boards
+        .merge({
+          userId: boards.parent.id,
+        })
+        .with('tasks', 10, (tasks) => {
+          tasks.merge({
+            boardId: tasks.parent.id,
+            assigneeId: boards.parent.id,
+            createdBy: boards.parent.id,
           })
-          .with('tasks', 10, (tasks) => {
-            tasks.merge({
-              boardId: boards.parent.id,
-              assigneeId: boards.parent.userId,
-              createdBy: boards.parent.userId,
-            })
-          })
-      })
+        })
     }).createMany(10)
   }
 }

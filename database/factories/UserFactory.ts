@@ -1,6 +1,6 @@
 import UserFactory from 'App/Models/User'
 import Factory from '@ioc:Adonis/Lucid/Factory'
-import ProjectFactory from './ProjectFactory'
+import BoardFactory from './BoardFactory'
 
 export default Factory.define(UserFactory, ({ faker }) => {
   return {
@@ -9,5 +9,5 @@ export default Factory.define(UserFactory, ({ faker }) => {
     password: '123456789',
   }
 })
-  .relation('projects', () => ProjectFactory)
+  .relation('boards', () => BoardFactory)
   .build()

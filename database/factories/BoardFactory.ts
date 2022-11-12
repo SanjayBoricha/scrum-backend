@@ -5,7 +5,7 @@ import BoardUserFactory from './BoardUserFactory'
 
 export default Factory.define(BoardFactory, ({ faker }) => {
   return {
-    name: faker.vehicle.model(),
+    name: faker.science.chemicalElement().name,
   }
 })
   .relation('tasks', () => TaskFactory)

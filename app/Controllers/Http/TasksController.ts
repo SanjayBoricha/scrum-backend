@@ -7,12 +7,10 @@ export default class TasksController {
   // get board's tasks
   public async getBoardTasks({ params, response }: HttpContextContract) {
     try {
-      const tasks = await Task.query()
-        .where('board_id', params.id)
-        .preload('assignee')
-        .paginate(params.page, params.per_page)
+      const tasks = await Task.query().where('board_id', params.id).preload('assignee')
+      // .paginate(params.page, params.per_page)
 
-      return tasks
+      return { data: tasks }
     } catch (error) {
       console.log(error)
 
@@ -48,7 +46,7 @@ export default class TasksController {
   public async changeStatus({ params, request, response }: HttpContextContract) {
     try {
       const taskStatusSchema = schema.create({
-        status: schema.enum(['todo', 'in-progress', 'done']),
+        status: schema.enum(['todo', 'in_progress', 'done']),
       })
 
       const payload = await request.validate({ schema: taskStatusSchema })

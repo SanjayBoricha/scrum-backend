@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { column, beforeSave, BaseModel, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
-import Project from './Project'
 import Board from './Board'
 
 export default class User extends BaseModel {
@@ -25,9 +24,6 @@ export default class User extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-
-  @hasMany(() => Project)
-  public projects: HasMany<typeof Project>
 
   @hasMany(() => Board)
   public boards: HasMany<typeof Board>

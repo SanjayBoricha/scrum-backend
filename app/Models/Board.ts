@@ -10,7 +10,6 @@ import {
   hasManyThrough,
 } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
-import Project from './Project'
 import BoardUser from './BoardUser'
 import Task from './Task'
 
@@ -23,12 +22,6 @@ export default class Board extends BaseModel {
 
   @column()
   public userId: number
-
-  @column()
-  public projectId: number
-
-  @belongsTo(() => Project)
-  public project: BelongsTo<typeof Project>
 
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
